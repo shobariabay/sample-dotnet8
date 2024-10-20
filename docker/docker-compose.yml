@@ -5,3 +5,5 @@ services:
     container_name: dotnet8-api
     ports:
       - 3031:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=<<config_name>>
