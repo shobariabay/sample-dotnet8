@@ -1,7 +1,7 @@
 version: '3'
 services:
-  <<containername>>:
-    image: <<imagename>>docker.io/shobariabay/dotnet8-api:latest
-    container_name: <<containername>>
+  dotnet8-api:
+    image: docker.io/shobariabay/<<image_name>>
+    container_name: dotnet8-api
     ports:
-      - <<port>>:80
+      - 3031:80
