@@ -1,1 +1,1 @@
-# sample-net8-webapi
+# sample-dotnet8

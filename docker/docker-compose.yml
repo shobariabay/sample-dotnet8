@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  dotnet8-webapp:
+    image: shobari/dotnet8-webapp:latest
+    container_name: dotnet8-webapp
+    ports:
+      - 8080:80
+  dotnet8-api:
+    image: shobari/dotnet8-api:latest
+    container_name: dotnet8-api
+    ports:
+      - 8081:80
