@@ -1,0 +1,56 @@
+pipeline {
+  agent any
+  environment {
+    PROJECT_SLN = "${workspace}/dotnet8.sln"
+    PROJECT_CSPROJ = "${workspace}/dotnet8-api/dotnet8-api.csproj"
+  }
+  stages {
+    stage ('Clean workspace') {
+      steps {
+        cleanWs()
+      }
+    }
+    stage("Git Checkout") {
+      steps {
+        echo "Git Checkout..."
+        git(
+            url: "https://github.com/shobariabay/sample-dotnet8.git",
+            branch: "main",
+            credentialsId: "github-cred"
+        )
+      }
+    }
+    stage('Restore packages') {
+      steps {
+        echo "Restore packages..."
+        sh "dotnet restore ${PROJECT_SLN}"
+      }
+    }
+    stage('Build') {
+      steps {
+        echo "Build..."
+        sh "dotnet build ${PROJECT_CSPROJ}"
+      }
+    }
+    stage('Unit Test') {
+      steps {
+        echo "Unit Testing..."
+      }
+    }
+    stage('Publish') {
+      steps {
+        echo "Publish..."
+        sh "dotnet publish ${PROJECT_CSPROJ} --configuration Release"
+        echo "Move the contents of the bin/Release/{TARGET FRAMEWORK}/publish folder to the IIS site folder on the server, which is the site's Physical path in IIS Manager"
+      }
+    }
+  }
+  post {
+    always {
+        slackSend (
+            channel: '#belajar',  //change your channel name
+            message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+        )
+    }
+  }
+}
