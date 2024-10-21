@@ -1,8 +1,8 @@
 pipeline {
   agent any
   environment {
-    PROJECT_SLN = "${workspace}/dotnet8.sln"
-    PROJECT_CSPROJ = "${workspace}/dotnet8-api/dotnet8-api.csproj"
+    PROJECT_SLN = "${workspace}_qualitycontrol/dotnet8.sln"
+    PROJECT_CSPROJ = "${workspace}_qualitycontrol/dotnet8-api/dotnet8-api.csproj"
   }
   stages {
     stage ('Clean workspace') {
